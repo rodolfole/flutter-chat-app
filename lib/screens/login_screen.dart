@@ -1,8 +1,11 @@
+import 'package:chat/helpers/show_alert.dart';
+import 'package:chat/services/auth_service.dart';
 import 'package:chat/widgets/btn.dart';
 import 'package:chat/widgets/custom_input.dart';
 import 'package:chat/widgets/labels.dart';
 import 'package:chat/widgets/logo.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 class LoginScreen extends StatelessWidget {
@@ -49,6 +52,8 @@ class __FormState extends State<_Form> {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
+
     return Container(
       margin: EdgeInsets.only(top: 40),
       padding: EdgeInsets.symmetric(horizontal: 50),
@@ -67,8 +72,16 @@ class __FormState extends State<_Form> {
             isPassword: true,
           ),
           Btn(
-            onPressed: () {
-              print(emailCtrl.text);
+            onPressed: authService.autenticando ? null : () async {
+              FocusScope.of(context).unfocus();
+              final loginOk = await authService.login(emailCtrl.text.trim(), passCtrl.text.trim());
+
+              if ( loginOk ) {
+
+                Navigator.pushReplacementNamed(context, 'users');
+              } else {
+                showAlert(context, 'Login incorrect', 'Check your credentials again');
+              }
             },
             text: 'Login',
           )
