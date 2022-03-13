@@ -1,8 +1,9 @@
 
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:chat/global/environment.dart';
 import 'package:chat/models/login_response.dart';
@@ -13,7 +14,7 @@ class AuthService with ChangeNotifier {
   late User user;
   bool _autenticando = false;
 
-  final _storage = FlutterSecureStorage();
+  final _storage = const FlutterSecureStorage();
 
   bool get autenticando => _autenticando;
   set autenticando( bool value ) {
@@ -22,7 +23,7 @@ class AuthService with ChangeNotifier {
   }
 
   static Future<String> getToken() async {
-    final _storage = FlutterSecureStorage();
+    const _storage = FlutterSecureStorage();
     final token = await _storage.read(key: 'token');
     
     return token ?? '';

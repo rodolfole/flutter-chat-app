@@ -10,12 +10,12 @@ class Logo extends StatelessWidget {
     return Center(
       child: Container(
         width: 170,
-        margin: EdgeInsets.only(top: 50 ),
+        margin: const EdgeInsets.only(top: 50 ),
         child: Column(
           children: [
-            Image( image: AssetImage('assets/tag-logo.png')),
-            SizedBox(height: 20),
-            Text(title, style: TextStyle(fontSize: 30))
+            const Image( image: AssetImage('assets/tag-logo.png')),
+            const SizedBox(height: 20),
+            Text(title, style: const TextStyle(fontSize: 30))
           ],
         ),
       ),
